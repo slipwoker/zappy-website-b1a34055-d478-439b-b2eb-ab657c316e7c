@@ -766,7 +766,7 @@
 </script>
   
   <main>
-    <section class="about-story-section" data-layout-spec="אודות-story" dir="rtl">
+    <section class="about-story-section" data-layout-spec="אודות-story" dir="rtl" data-zappy-animate="fade-in" data-zappy-anim-duration="0.6s" data-zappy-anim-delay="0s">
   <!-- Dot grid decorative background -->
   <div class="about-story-dot-grid" aria-hidden="true"></div>
 
@@ -880,7 +880,7 @@
   </div>
 </section>
 
-<section class="about-values-section" data-layout-spec="אודות-values" dir="rtl">
+<section class="about-values-section" data-layout-spec="אודות-values" dir="rtl" data-zappy-animate="fade-in" data-zappy-anim-duration="0.6s" data-zappy-anim-delay="0.1s">
   <!-- Geometric rule network background -->
   <div class="about-values-bg-network" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1280 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -993,7 +993,7 @@
   </div>
 </section>
 
-<section class="about-team-section" data-layout-spec="אודות-team" dir="rtl">
+<section class="about-team-section" data-layout-spec="אודות-team" dir="rtl" data-zappy-animate="fade-in" data-zappy-anim-duration="0.6s" data-zappy-anim-delay="0.2s">
   <!-- Background decorative dot grid -->
   <div class="about-team-bg-grid" aria-hidden="true"></div>
 
@@ -1077,7 +1077,7 @@
 
 </section>
 
-<section class="about-reviews-section" data-layout-spec="אודות-reviews" dir="rtl">
+<section class="about-reviews-section" data-layout-spec="אודות-reviews" dir="rtl" data-zappy-animate="fade-in" data-zappy-anim-duration="0.6s" data-zappy-anim-delay="0.30000000000000004s">
   <div class="about-reviews-container">
 
     <!-- Section Header -->
@@ -1289,7 +1289,26 @@
   </a>
   
   <div data-integration="accessibility:toolbar"></div>
-
+<script data-zappy-animation-observer="">(function() {
+  if (window.__zappyAnimObserver) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var anim = el.getAttribute('data-zappy-animate');
+        var dur = el.getAttribute('data-zappy-anim-duration') || '0.6s';
+        var del = el.getAttribute('data-zappy-anim-delay') || '0s';
+        el.style.animation = 'zappy-' + anim + ' ' + dur + ' ' + del + ' ease forwards';
+        el.classList.add('zappy-animated');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('[data-zappy-animate]').forEach(function(el) {
+    observer.observe(el);
+  });
+  window.__zappyAnimObserver = observer;
+})();</script>
     <script src="/script.js"></script>
 
     <script id="zappy-mobile-submenu-script">
